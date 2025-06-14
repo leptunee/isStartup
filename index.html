@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>电脑开机状态检测器</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 60px 40px;
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            backdrop-filter: blur(10px);
+        }
+
+        .title {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            color: #7f8c8d;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .detection-area {
+            border: 3px solid #3498db;
+            border-radius: 15px;
+            padding: 40px 20px;
+            margin: 30px 0;
+            background: rgba(52, 152, 219, 0.05);
+        }
+
+        .start-button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.3em;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+            font-weight: bold;
+        }
+
+        .start-button:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.4);
+        }
+
+        .start-button:active {
+            transform: translateY(0);
+        }
+
+        .result-area {
+            border: 3px solid #27ae60;
+            border-radius: 15px;
+            padding: 30px 20px;
+            margin: 30px 0;
+            background: rgba(39, 174, 96, 0.05);
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .result-text {
+            font-size: 1.4em;
+            color: #27ae60;
+            font-weight: bold;
+            display: none;
+        }
+
+        .result-text.show {
+            display: block;
+        }
+
+        .copyright {
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #95a5a6;
+        }
+
+        .loading {
+            display: none;
+            color: #3498db;
+            font-size: 1.2em;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .loading::after {
+            content: '';
+            animation: dots 1.5s infinite;
+        }
+
+        @keyframes dots {
+            0%, 20% { content: ''; }
+            40% { content: '.'; }
+            60% { content: '..'; }
+            80%, 100% { content: '...'; }
+        }
+
+        .icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .status-icon {
+            font-size: 2em;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="icon">💻</div>
+        <h1 class="title">电脑开机状态检测器</h1>
+        <p class="subtitle">使用先进的大数据技术分析您的电脑状态</p>
+        
+        <div class="detection-area">
+            <button class="start-button" onclick="startDetection()">开始检测</button>
+        </div>
+
+        <div class="result-area">
+            <div class="loading" id="loading">正在检测中</div>
+            <div class="result-text" id="result">
+                <span class="status-icon">🎉</span>恭喜你，你的电脑当前为开机状态！
+            </div>
+        </div>
+
+        <div class="copyright">
+            © 2025 电脑健康检测中心 | 使用先进的大数据技术
+        </div>
+    </div>
+
+    <script>
+        function startDetection() {
+            const button = document.querySelector('.start-button');
+            const loading = document.getElementById('loading');
+            const result = document.getElementById('result');
+            
+            // 隐藏结果，显示加载状态
+            result.classList.remove('show');
+            loading.classList.add('show');
+            
+            // 禁用按钮
+            button.disabled = true;
+            button.style.opacity = '0.6';
+            button.style.cursor = 'not-allowed';
+            button.textContent = '检测中...';
+            
+            // 模拟检测过程
+            setTimeout(() => {
+                // 隐藏加载状态，显示结果
+                loading.classList.remove('show');
+                result.classList.add('show');
+                
+                // 恢复按钮
+                button.disabled = false;
+                button.style.opacity = '1';
+                button.style.cursor = 'pointer';
+                button.textContent = '重新检测';
+            }, 3000); // 3秒后显示结果
+        }
+    </script>
+</body>
+</html>
